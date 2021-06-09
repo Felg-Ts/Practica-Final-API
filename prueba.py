@@ -1,5 +1,4 @@
 import json
-import datetime
 import requests
 
 file = open("city.json", encoding="utf8")
