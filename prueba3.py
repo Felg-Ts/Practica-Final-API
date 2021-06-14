@@ -24,12 +24,12 @@ headers = {
 response = requests.request("GET", url, headers=headers, params=querystring)
 if response.status_code==200:
     datos=response.json()
-    print(datos)
-    #for i in datos.get("list"):
-    #    print(i.get("dt_txt"))
-    #print(datos.get("sys").get("country"))
-    #print(datos.get("main").get("temp_max"))
-    #print(datos.get("main").get("temp_min"))
-    #print(datos.get("main").get("humidity"))
-    #print(datos.get("wind").get("speed"))
-
+    for i in datos.get("list"):
+        print(i.get("components").get("co"))
+        print(i.get("components").get("no"))
+        print(i.get("components").get("no2"))
+        print(i.get("components").get("o3"))
+        print(i.get("components").get("so2"))
+        print(i.get("components").get("pm2_5"))
+        print(i.get("components").get("pm10"))
+        print(i.get("components").get("nh3"))
