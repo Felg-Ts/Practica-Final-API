@@ -1,5 +1,6 @@
 import json
 import requests
+from requests.api import get
 
 file = open("city.json", encoding="utf8")
 content = file.read()
@@ -25,9 +26,14 @@ if response.status_code==200:
     #print(datos)
     for i in datos.get("list"):
         print(i.get("dt_txt"))
-    #print(datos.get("sys").get("country"))
-    #print(datos.get("main").get("temp_max"))
-    #print(datos.get("main").get("temp_min"))
-    #print(datos.get("main").get("humidity"))
-    #print(datos.get("wind").get("speed"))
+
+    date = input("Indique la fecha y hora que quiere comprobar: ")    
+    for x in datos.get("list"):
+        if x["dt_txt"] == date:
+            for x1 in x["weather"]:
+                print(x1.get("description"))
+            print(x.get("main").get("temp_max"))
+            print(x.get("main").get("temp_min"))
+            print(x.get("main").get("humidity"))
+            print(x.get("wind").get("speed"))
 
