@@ -9,9 +9,18 @@ app = Flask(__name__)
 def inicio():
     return render_template("inicio.html",titulo="Inicio")
 
-@app.route('/juegos',methods=["GET"])
-def juegos():
-    return render_template("juegos.html",titulo="juegos")
+@app.route('/detalles/<appd>/',methods=["GET"])
+def detalles(appd):
+    if appd == "dma":
+        titulo = "Detalles Programa 1"
+        detalle = "Detalles de Current weather data"
+    elif appd == "ptdd":
+        titulo = "Detalles Programa 2"
+        detalle = "Detalles de 5 day weather forecast"
+    elif appd == "acda":
+        titulo = "Detalles Programa 3"
+        detalle = "Detalles Air Pollution API"
+    return render_template("detalles.html",appd=appd, titulo=titulo,detalle=detalle)
 
 
 @app.route('/listajuegos',methods=["POST"])
