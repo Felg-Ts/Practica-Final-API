@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{titulo}}{% endblock %}
+{% block title2 %}{{cadena}}{% endblock %}
+{% block table %}
+<div class="datagrid">
+    <table>
+        <thead><tr><th>Nombre</th><th>Desarrollador</th><th>Detalle</th></tr></thead>
+        <tbody>
+            {% for a in jsondecoded %}
+            <tr class="alt"><td >{{ a.nombre }}</td><td>{{ a.desarrollador }}</td><td>{{ a.id }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
