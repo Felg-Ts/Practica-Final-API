@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<title>{% block title %}{% endblock %}</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" type="text/css" media="all" href="{{url_for("static", filename='css/framework.css')}}">
+<link rel="stylesheet" type="text/css" media="all" href="{{url_for("static", filename='css/layout.css')}}">
+
+</head>
+<body id="top">
+
+<div class="bgded overlay" style="background-image:url('{{url_for("static", filename='css/OpenWeather.jpg')}}">
+  <div class="wrapper row1">
+  </div>
+  <div id="pageintro" class="hoc clear"> 
+    <article>
+      <h3 class="heading">Practica-Final-API: Openweathermap</h3>
+      {% block title2 %}{% endblock %}
+      <footer>
+        {% block form %}{% endblock %}
+      </footer>
+    </article>
+  </div>
+</div>
+<div class="wrapper row4">
+  <footer id="footer" class="hoc clear"> 
+    <div class="group btmspace-80">
+      <div class="one_third first">
+        <h6 class="heading"></h6>
+      </div>
+      <div class="one_third">
+        {% block lista %}{% endblock %}
+        {% block table %}{% endblock %}
+      </div>
+      <div class="one_third">
+        <h6 class="heading"></h6>
+      </div>
+    </div>
+  </footer>
+</div>
+<div class="wrapper row5">
+  <div id="copyright" class="hoc clear"> 
+    <p class="fl_left">Copyright &copy; 2018 - All Rights Reserved - Domain Name</a></p>
+    <p class="fl_right">Template by OS Templates</a></p>
+  </div>
+</div>
+</body>
+</html>
