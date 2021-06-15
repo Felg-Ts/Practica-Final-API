@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{titulo}}{% endblock %}
+{% block title2 %}
+<p>Página principal.</p>
+{% endblock %}
+{% block lista %}
+<div>
+    <p>Herramientas de la aplicación</p> 
+    <ul>
+        <li>Datos meteorológicos actuales <a href="/detalles">Detalles</a></li> 
+        <li>Pronóstico del tiempo de 5 días <a href="/detalles">Detalles</a></li></li> 
+        <li>API de contaminación del aire <a href="/detalles">Detalles</a></li></li> 
+    </ul>
+</div>
+{% endblock %}
