@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{{titulo}}{% endblock %}
+{% block title2 %}
+<p>Página juegos.</p>
+{% endblock %}
+{% block form %}
+<form class="group" method="post" action="/listajuegos">
+    <fieldset>
+      <input type="text" name="tjuego" placeholder="Nombre del Juego">
+      <button class="fas fa-sign-in-alt" type="submit" title="Submit"><em>Submit</em></button>
+    </fieldset>
+</form>
+{% endblock %}
