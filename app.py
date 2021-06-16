@@ -32,74 +32,48 @@ def forms(appd):
         ruta = "/dma"
         texto = "Nombre-de-una-ciudad"
         titulo2 = "Formulario de Current weather data"
+        getform = "tdma"
     elif appd == "ptdd":
         titulo = "Formulario de 5 day weather forecast"
         ruta = "/ptdd"
         texto = "Nombre-de-una-ciudad"
         titulo2 = "Formulario de 5 day weather forecast"
+        getform = "tptdd"
     elif appd == "acda":
         titulo = "Formulario de Air Pollution API"
         ruta = "/acda"
         texto = "Nombre-de-una-ciudad"
         titulo2 = "Formualrio de Air Pollution API"
-    return render_template("forms.html",titulo=titulo,titulo2=titulo2,ruta=ruta,texto=texto)
-
-@app.route('/dma',methods=["POST"])
-def appd():
-    
-    l1 = []
-
-    f = open("MSX.json", "r")
-    content = f.read()
-    jsondecoded = json.loads(content)
-
-    nombrej=request.form.get("tjuego")
-
-    for i in jsondecoded:
-        entityName = i["nombre"]
-        if entityName.startswith(nombrej):
-            l1.append(i)
-    if len(l1) == 0:
-        error = "No se encontró ninguna coincidencia con los caracteres introducidos"
-        return render_template("error404.html",titulo="error404", error=error)
-
-
-    return render_template("listajuegos.html",titulo="listajuegos", l1=l1)
-
-@app.route('/juego/<int:id>/',methods=["GET","POST"])
-def juego(id):
-
-    l1 = []
-
-    f = open("MSX.json", "r")
-    content = f.read()
-    jsondecoded = json.loads(content)
-
-    for i in jsondecoded:
-        entityid = i["id"]
-        if entityid == id:
-            l1.append(i)
-    if len(l1) == 0:
-        error = "No se encontró ninguna coincidencia con el id introducido"
-        return render_template("error404.html",titulo="error404", error=error)
-
-    return render_template("juego.html",titulo="juego", l1=l1)
+        getform = "tacda"
+    return render_template("forms.html",titulo=titulo,titulo2=titulo2,ruta=ruta,texto=texto,getform=getform)
 
 @app.route('/dma',methods=["Post"])
-def dma():
+def ids():
+
+    listadatos = []
+
+    titulo = "Current weather data"
+    titulo2 = "Current weather data"
 
     file = open("city.json", encoding="utf8")
     content = file.read()
     jsondecoded = json.loads(content)
 
-    name = input("Dime el nombre de la ciudad: ")
+    name = request.form.get("tdma")
 
     for entity in jsondecoded:
         entityName = entity["name"]
         if entityName.startswith(name) is True:
-            print("name: " + entity["name"], "country: " + entity["country"] , "id:",  entity["id"])
+            listadatos.append(entity)
+    return render_template("ids.html",titulo=titulo,titulo2=titulo2,listadatos=listadatos)
 
-    id = input("Dime el id de la ciudad: ")
+@app.route('/dma/<int:id>',methods=["GET"])
+def dma(id):
+
+    listadatos = []
+
+    titulo = "Current weather data"
+    titulo2 = "Current weather data"
 
     url = "https://api.openweathermap.org/data/2.5/weather"
     querystring = {"id":f"{id}","appid":"5a74fb5df668d605eaef2012ed31eed8","units":"metric","lang":"38"}
@@ -109,14 +83,8 @@ def dma():
     response = requests.request("GET", url, headers=headers, params=querystring)
     if response.status_code==200:
         datos=response.json()
-        print(datos.get("name"))
-        print(datos.get("sys").get("country"))
-        print(datos.get("main").get("temp_max"))
-        print(datos.get("main").get("temp_min"))
-        print(datos.get("main").get("humidity"))
-        print(datos.get("wind").get("speed"))
-
-
+        listadatos.append(datos)
+    return render_template("Current-weather-data.html",titulo=titulo,titulo2=titulo2, listadatos=listadatos)
 
 if __name__ == '__main__':
     app.run('0.0.0.0',int(5000), debug=True)
