@@ -23,7 +23,6 @@ headers = {
 response = requests.request("GET", url, headers=headers, params=querystring)
 if response.status_code==200:
     datos=response.json()
-    #print(datos)
     for i in datos.get("list"):
         print(i.get("dt_txt"))
 
