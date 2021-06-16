@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{titulo}}{% endblock %}
+{% block title2 %}{{titulo2}}{% endblock %}
+{% block form %}
+<form class="group" method="post" action={{ruta}}>
+    <fieldset>
+      <input type="text" name="tjuego" placeholder={{texto}}>
+      <button class="fas fa-sign-in-alt" type="submit" title="Submit"><em>Submit</em></button>
+    </fieldset>
+</form>
+{% endblock %}
+{% block inicio %}<a href="/">Inicio</a>{% endblock %}
