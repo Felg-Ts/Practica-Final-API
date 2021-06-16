@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{titulo}}{% endblock %}
+{% block title2 %}{{titulo2}}{% endblock %}
+{% block table %}
+<div class="datagrid">
+    <table>
+        <thead><tr><th>Nombre</th><th>País</th><th>Id</th></tr></thead>
+        <tbody>
+            {% for a in listadatos %}
+            <tr class="alt"><td >{{ a.name }}</td><td>{{ a.country }}</td><td><a href="/dma/{{a.id}}">{{ a.id }}</a></td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
