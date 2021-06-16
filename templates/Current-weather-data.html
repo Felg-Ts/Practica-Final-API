@@ -1,4 +1,16 @@
 {% extends "base.html" %}
 {% block title %}{{titulo}}{% endblock %}
-{% block title2 %}{{cadena1}}{% endblock %}
-
+{% block title2 %}{{title2}}{% endblock %}
+{% block inicio %}<a href="/">Inicio</a>{% endblock %}
+{% block table %}
+<div class="datagrid">
+    <table>
+        <thead><tr><th>Nombre</th><th>País</th><th>Temp_max</th><th>Temp_min</th><th>Humedad</th><th>Velocidad_Viento</th>></tr></thead>
+        <tbody>
+            {% for a in listadatos %}
+            <tr class="alt"><td >{{ a.name }}</td><td>{{ a.sys.country }}</td><td>{{ a.main.temp_max }}</td><td >{{ a.main.temp_min }}</td><td>{{ a.main.humidity }}</td><td>{{ a.wind.speed }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
