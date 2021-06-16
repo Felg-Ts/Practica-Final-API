@@ -1,9 +1,10 @@
-from flask import Flask, request,url_for,render_template
+from flask import Flask, request,url_for,render_template,session 
 from jinja2 import Template
 import json
 import requests
 
 app = Flask(__name__)	
+app.secret_key = '7r7fCCb@YVZ&3ZIHo^XImtpfC#tDmbw'
 
 @app.route('/',methods=["GET"])
 def inicio():
@@ -66,7 +67,7 @@ def ids(appd):
 
         for entity in jsondecoded:
             entityName = entity["name"]
-            if entityName.startswith(name) is True:
+            if entityName.startswith(name):
                 listadatos.append(entity)
         return render_template("ids.html",titulo=titulo,titulo2=titulo2,listadatos=listadatos,rutaid=rutaid)
 
@@ -86,7 +87,7 @@ def ids(appd):
 
         for entity in jsondecoded:
             entityName = entity["name"]
-            if entityName.startswith(name) is True:
+            if entityName.startswith(name):
                 listadatos.append(entity)
         return render_template("ids.html",titulo=titulo,titulo2=titulo2,listadatos=listadatos,rutaid=rutaid)
 
@@ -112,12 +113,12 @@ def dma(id):
 @app.route('/ptdd/<int:id>',methods=["GET"])
 def ptdd1(id):
 
-    listadatos = []
-    listadatos2 = []
+    listadatosptdd = []
+    listadatosptdd2 = []
 
-
-    titulo = "Current weather data"
-    titulo2 = "Current weather data"
+    session['idsession'] = id
+    titulo = "5 day weather forecast"
+    titulo2 = "5 day weather forecast"
 
     url = "https://api.openweathermap.org/data/2.5/forecast"
     querystring = {"id":f"{id}","appid":"5a74fb5df668d605eaef2012ed31eed8","units":"metric","lang":"38"}
@@ -128,10 +129,39 @@ def ptdd1(id):
     if response.status_code==200:
         datos=response.json()
         for i in datos.get("list"):
-            listadatos.append(i)
+            listadatosptdd.append(i)
             for d in i["weather"]:
-                listadatos2.append(d)
-    return render_template("5-day-weather-forecast.html",titulo=titulo,titulo2=titulo2,listadatos=listadatos,listadatos2=listadatos2)
+                listadatosptdd2.append(d)
+
+    return render_template("5-day-weather-forecast.html",titulo=titulo,titulo2=titulo2,listadatosptdd=listadatosptdd,listadatosptdd2=listadatosptdd2)
+
+@app.route('/ptdd/<date>/',methods=["GET"])
+def ptdd2(date):
+
+    id = session.get("idsession", None)
+
+    listadatosptdd = []
+    listadatosptdd2 = []
+
+    session['idsession'] = id
+    titulo = "5 day weather forecast"
+    titulo2 = "5 day weather forecast"
+
+    url = "https://api.openweathermap.org/data/2.5/forecast"
+    querystring = {"id":f"{id}","appid":"5a74fb5df668d605eaef2012ed31eed8","units":"metric","lang":"38"}
+    headers = {
+        'Cache-Control': 'no-cache'
+        }
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    if response.status_code==200:
+        datos=response.json()
+        for i in datos.get("list"):
+            if i["dt_txt"].startswith(date):
+                listadatosptdd.append(i)
+                for d in i["weather"]:
+                    listadatosptdd2.append(d)
+
+    return render_template("5-day-weather-forecast.html",titulo=titulo,titulo2=titulo2,listadatosptdd=listadatosptdd,listadatosptdd2=listadatosptdd2,date=date)
 
 
 if __name__ == '__main__':
