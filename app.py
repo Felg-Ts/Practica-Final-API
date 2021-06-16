@@ -29,43 +29,66 @@ def detalles(appd):
 def forms(appd):
     if appd == "dma":
         titulo = "Formulario de Current weather data"
-        ruta = "/dma"
+        ruta = "/ids/dma"
         texto = "Nombre-de-una-ciudad"
         titulo2 = "Formulario de Current weather data"
         getform = "tdma"
     elif appd == "ptdd":
         titulo = "Formulario de 5 day weather forecast"
-        ruta = "/ptdd"
+        ruta = "/ids/ptdd"
         texto = "Nombre-de-una-ciudad"
         titulo2 = "Formulario de 5 day weather forecast"
         getform = "tptdd"
     elif appd == "acda":
         titulo = "Formulario de Air Pollution API"
-        ruta = "/acda"
+        ruta = "/ids/acda"
         texto = "Nombre-de-una-ciudad"
         titulo2 = "Formualrio de Air Pollution API"
         getform = "tacda"
     return render_template("forms.html",titulo=titulo,titulo2=titulo2,ruta=ruta,texto=texto,getform=getform)
 
-@app.route('/dma',methods=["Post"])
-def ids():
+@app.route('/ids/<appd>',methods=["Post"])
+def ids(appd):
 
-    listadatos = []
+    if appd == "dma":
 
-    titulo = "Current weather data"
-    titulo2 = "Current weather data"
+        listadatos = []
 
-    file = open("city.json", encoding="utf8")
-    content = file.read()
-    jsondecoded = json.loads(content)
+        rutaid = "/dma/"
+        titulo = "Current weather data"
+        titulo2 = "Current weather data"
 
-    name = request.form.get("tdma")
+        file = open("city.json", encoding="utf8")
+        content = file.read()
+        jsondecoded = json.loads(content)
 
-    for entity in jsondecoded:
-        entityName = entity["name"]
-        if entityName.startswith(name) is True:
-            listadatos.append(entity)
-    return render_template("ids.html",titulo=titulo,titulo2=titulo2,listadatos=listadatos)
+        name = request.form.get("tdma")
+
+        for entity in jsondecoded:
+            entityName = entity["name"]
+            if entityName.startswith(name) is True:
+                listadatos.append(entity)
+        return render_template("ids.html",titulo=titulo,titulo2=titulo2,listadatos=listadatos,rutaid=rutaid)
+
+    elif appd == "ptdd":
+
+        listadatos = []
+
+        rutaid = "/ptdd/"
+        titulo = "5 day weather forecast"
+        titulo2 = "5 day weather forecast"
+
+        file = open("city.json", encoding="utf8")
+        content = file.read()
+        jsondecoded = json.loads(content)
+
+        name = request.form.get("tptdd")
+
+        for entity in jsondecoded:
+            entityName = entity["name"]
+            if entityName.startswith(name) is True:
+                listadatos.append(entity)
+        return render_template("ids.html",titulo=titulo,titulo2=titulo2,listadatos=listadatos,rutaid=rutaid)
 
 @app.route('/dma/<int:id>',methods=["GET"])
 def dma(id):
