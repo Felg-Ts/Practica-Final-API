@@ -12,15 +12,18 @@ def inicio():
 @app.route('/detalles/<appd>/',methods=["GET"])
 def detalles(appd):
     if appd == "dma":
-        titulo = "Detalles Programa 1"
-        detalle = "Detalles de Current weather data"
+        titulo = "Detalles de Current weather data"
+        detalle = "Acceda a los datos meteorológicos actuales de cualquier lugar de la Tierra, incluidas más de 200.000 ciudades."
+        titulo2 = "Detalles de Current weather data"
     elif appd == "ptdd":
-        titulo = "Detalles Programa 2"
-        detalle = "Detalles de 5 day weather forecast"
+        titulo = "Detalles de 5 day weather forecast"
+        detalle = "El pronóstico de 5 días está disponible en cualquier lugar o ciudad. Incluye datos de pronóstico del tiempo con pasos de 3 horas."
+        titulo2 = "Detalles de 5 day weather forecast"
     elif appd == "acda":
-        titulo = "Detalles Programa 3"
-        detalle = "Detalles Air Pollution API"
-    return render_template("detalles.html",appd=appd, titulo=titulo,detalle=detalle)
+        titulo = "Detalles Air Pollution API"
+        detalle = "Esta herramienta proporciona datos de contaminación del aire actuales, pronosticados e históricos para cualquier coordenada del mundo."
+        titulo2 = "Detalles Air Pollution API"
+    return render_template("detalles.html",appd=appd, titulo=titulo,detalle=detalle,titulo2=titulo2)
 
 
 @app.route('/listajuegos',methods=["POST"])
