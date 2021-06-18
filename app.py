@@ -1,5 +1,4 @@
-from flask import Flask, request,url_for,render_template,session 
-from jinja2 import Template
+from flask import Flask, request,render_template,session 
 import json
 import requests
 
