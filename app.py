@@ -1,4 +1,5 @@
 #Librerías
+import os
 from flask import Flask, request,render_template,session 
 import json
 import requests
@@ -247,4 +248,5 @@ def acda(lat, lon):
     return render_template("Air-Pollution-API.html",titulo=titulo,titulo2=titulo2,listadatos=listadatos)
 
 if __name__ == '__main__':
-    app.run('0.0.0.0',int(5000), debug=True)
+    port=os.environ["PORT"]
+    app.run('0.0.0.0',int(port), debug=True)
