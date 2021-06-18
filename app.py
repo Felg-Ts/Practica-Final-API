@@ -162,6 +162,45 @@ def ptdd2(date):
 
     return render_template("5-day-weather-forecast.html",titulo=titulo,titulo2=titulo2,listadatosptdd=listadatosptdd,listadatosptdd2=listadatosptdd2,date=date)
 
+@app.route('/crd/acda',methods=["Post"])
+def cdr():
+
+    listadatos = []
+
+    titulo = "Air Pollution API"
+    titulo2 = "Air Pollution API"
+
+    file = open("city.json", encoding="utf8")
+    content = file.read()
+    jsondecoded = json.loads(content)
+
+    name = request.form.get("tacda")
+
+    for entity in jsondecoded:
+        entityName = entity["name"]
+        if entityName.startswith(name):
+            listadatos.append(entity)
+    return render_template("crd.html",titulo=titulo,titulo2=titulo2,listadatos=listadatos)
+
+@app.route('/acda/<lat>/<lon>',methods=["GET"])
+def acda(lat, lon):
+
+    listadatos = []
+
+    titulo = "Air Pollution API"
+    titulo2 = "Air Pollution API"
+
+    url = "https://api.openweathermap.org/data/2.5/air_pollution"
+    querystring = {"lat":f"{lat}","lon":f"{lon}","appid":"5a74fb5df668d605eaef2012ed31eed8","units":"metric","lang":"38"}
+    headers = {
+        'Cache-Control': 'no-cache'
+        }
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    if response.status_code==200:
+        datos=response.json()
+        for i in datos.get("list"):
+            listadatos.append(i)
+    return render_template("Air-Pollution-API.html",titulo=titulo,titulo2=titulo2,listadatos=listadatos)
 
 if __name__ == '__main__':
     app.run('0.0.0.0',int(5000), debug=True)
