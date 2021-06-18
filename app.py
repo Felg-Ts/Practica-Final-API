@@ -41,7 +41,7 @@ def forms(appd):
         getform = "tptdd"
     elif appd == "acda":
         titulo = "Formulario de Air Pollution API"
-        ruta = "/ids/acda"
+        ruta = "/crd/acda"
         texto = "Nombre-de-una-ciudad"
         titulo2 = "Formualrio de Air Pollution API"
         getform = "tacda"
