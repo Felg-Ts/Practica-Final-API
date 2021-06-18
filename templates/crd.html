@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{titulo}}{% endblock %}
+{% block title2 %}{{titulo2}}{% endblock %}
+{% block inicio %}<a href="/">Inicio</a>{% endblock %}
+{% block table %}
+<div class="datagrid">
+    <table>
+        <thead><tr><th>Nombre</th><th>País</th><th>latitud y longitud</th></tr></thead>
+        <tbody>
+            {% for a in listadatos %}
+            <tr class="alt"><td >{{ a.name }}</td><td>{{ a.country }}</td><td><a href="/acda/{{a.coord.lat}}/{{a.coord.lon}}">lat: {{ a.coord.lat }}  lon: {{ a.coord.lon }}</a></td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
