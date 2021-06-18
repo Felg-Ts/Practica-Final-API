@@ -1,3 +1,4 @@
+#Librerías
 from flask import Flask, request,render_template,session 
 import json
 import requests
@@ -5,9 +6,13 @@ import requests
 app = Flask(__name__)	
 app.secret_key = '7r7fCCb@YVZ&3ZIHo^XImtpfC#tDmbw'
 
+#inicio de la aplicación
+
 @app.route('/',methods=["GET"])
 def inicio():
     return render_template("inicio.html",titulo="Inicio")
+
+#Pequeña descripción de cada programa.
 
 @app.route('/detalles/<appd>/',methods=["GET"])
 def detalles(appd):
@@ -24,6 +29,8 @@ def detalles(appd):
         detalle = "Esta herramienta proporciona datos de contaminación del aire actuales, pronosticados e históricos para cualquier coordenada del mundo."
         titulo2 = "Detalles Air Pollution API"
     return render_template("detalles.html",appd=appd,titulo=titulo,detalle=detalle,titulo2=titulo2)
+
+#Formularios para los 3 programas.
 
 @app.route('/forms/<appd>',methods=["GET"])
 def forms(appd):
@@ -46,6 +53,8 @@ def forms(appd):
         titulo2 = "Formualrio de Air Pollution API"
         getform = "tacda"
     return render_template("forms.html",titulo=titulo,titulo2=titulo2,ruta=ruta,texto=texto,getform=getform)
+
+#Resultados de los formualarios 1 y 2.
 
 @app.route('/ids/<appd>',methods=["Post"])
 def ids(appd):
@@ -90,6 +99,8 @@ def ids(appd):
                 listadatos.append(entity)
         return render_template("ids.html",titulo=titulo,titulo2=titulo2,listadatos=listadatos,rutaid=rutaid)
 
+#Resultado programa 1
+
 @app.route('/dma/<int:id>',methods=["GET"])
 def dma(id):
 
@@ -108,6 +119,8 @@ def dma(id):
         datos=response.json()
         listadatos.append(datos)
     return render_template("Current-weather-data.html",titulo=titulo,titulo2=titulo2,listadatos=listadatos)
+
+#Resultado programa 2-1
 
 @app.route('/ptdd/<int:id>',methods=["GET"])
 def ptdd1(id):
@@ -133,6 +146,8 @@ def ptdd1(id):
                 listadatosptdd2.append(d)
 
     return render_template("5-day-weather-forecast.html",titulo=titulo,titulo2=titulo2,listadatosptdd=listadatosptdd,listadatosptdd2=listadatosptdd2)
+
+#Resultado programa 2-2
 
 @app.route('/ptdd/<date>/',methods=["GET"])
 def ptdd2(date):
@@ -162,6 +177,8 @@ def ptdd2(date):
 
     return render_template("5-day-weather-forecast.html",titulo=titulo,titulo2=titulo2,listadatosptdd=listadatosptdd,listadatosptdd2=listadatosptdd2,date=date)
 
+#Resultado formulario 3.
+
 @app.route('/crd/acda',methods=["Post"])
 def cdr():
 
@@ -181,6 +198,8 @@ def cdr():
         if entityName.startswith(name):
             listadatos.append(entity)
     return render_template("crd.html",titulo=titulo,titulo2=titulo2,listadatos=listadatos)
+
+#Resultado programa 3.
 
 @app.route('/acda/<lat>/<lon>',methods=["GET"])
 def acda(lat, lon):
