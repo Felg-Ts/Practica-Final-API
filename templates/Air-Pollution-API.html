@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 {% block title %}{{titulo}}{% endblock %}
-{% block title2 %}{{cadena}}{% endblock %}
+{% block title2 %}{{titulo2}}{% endblock %}
+{% block inicio %}<a href="/">Inicio</a>{% endblock %}
 {% block table %}
 <div class="datagrid">
     <table>
-        <thead><tr><th>Nombre</th><th>Desarrollador</th><th>Detalle</th></tr></thead>
+        <thead><tr><th>co</th><th>no</th><th>no2</th><th>o3</th><th>so2</th><th>pm2_5</th><th>pm10</th><th>nh3</th></tr></thead>
         <tbody>
-            {% for a in jsondecoded %}
-            <tr class="alt"><td >{{ a.nombre }}</td><td>{{ a.desarrollador }}</td><td>{{ a.id }}</td></tr>
+            {% for a in listadatos %}
+            <tr class="alt"><td >{{ a.components.co }}</td><td>{{ a.components.no }}</td><td>{{ a.components.no2 }}</td><td >{{ a.components.o3 }}</td><td>{{ a.components.so2 }}</td><td>{{ a.components.pm2_5 }}</td><td>{{ a.components.pm10 }}</td><td>{{ a.components.nh3 }}</td></tr>
             {% endfor %}
         </tbody>
     </table>
