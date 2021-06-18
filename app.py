@@ -77,6 +77,10 @@ def ids(appd):
             entityName = entity["name"]
             if entityName.startswith(name):
                 listadatos.append(entity)
+
+        if len(listadatos) == 0:
+            return render_template("error404.html",titulo="Error404",titulo2="Error404",errormesaje="Los caracteres introducidos no coinciden con ningún nombre. Recuerde que la primera letra de la ciudad tiene que ser en mayúsculas",urlform="/forms/dma")
+
         return render_template("ids.html",titulo=titulo,titulo2=titulo2,listadatos=listadatos,rutaid=rutaid)
 
     elif appd == "ptdd":
@@ -97,6 +101,10 @@ def ids(appd):
             entityName = entity["name"]
             if entityName.startswith(name):
                 listadatos.append(entity)
+        
+        if len(listadatos) == 0:
+            return render_template("error404.html",titulo="Error404",titulo2="Error404",errormesaje="Los caracteres introducidos no coinciden con ningún nombre. Recuerde que la primera letra de la ciudad tiene que ser en mayúsculas",urlform="/forms/ptdd")
+        
         return render_template("ids.html",titulo=titulo,titulo2=titulo2,listadatos=listadatos,rutaid=rutaid)
 
 #Resultado programa 1
@@ -118,6 +126,10 @@ def dma(id):
     if response.status_code==200:
         datos=response.json()
         listadatos.append(datos)
+
+    if len(listadatos) == 0:
+        return render_template("error404.html",titulo="Error404",titulo2="Error404",errormesaje="El id introducido no coincide con ninguna ciudad. Compruebe que está escrito correctamente",urlform="/forms/dma")
+    
     return render_template("Current-weather-data.html",titulo=titulo,titulo2=titulo2,listadatos=listadatos)
 
 #Resultado programa 2-1
@@ -144,6 +156,9 @@ def ptdd1(id):
             listadatosptdd.append(i)
             for d in i["weather"]:
                 listadatosptdd2.append(d)
+    
+    if len(listadatosptdd) == 0:
+        return render_template("error404.html",titulo="Error404",titulo2="Error404",errormesaje="El id introducido no coincide con ninguna ciudad. Compruebe que está escrito correctamente",urlform="/forms/ptdd")
 
     return render_template("5-day-weather-forecast.html",titulo=titulo,titulo2=titulo2,listadatosptdd=listadatosptdd,listadatosptdd2=listadatosptdd2)
 
@@ -157,7 +172,6 @@ def ptdd2(date):
     listadatosptdd = []
     listadatosptdd2 = []
 
-    session['idsession'] = id
     titulo = "5 day weather forecast"
     titulo2 = "5 day weather forecast"
 
@@ -174,6 +188,9 @@ def ptdd2(date):
                 listadatosptdd.append(i)
                 for d in i["weather"]:
                     listadatosptdd2.append(d)
+
+    if len(listadatosptdd) == 0:
+        return render_template("error404.html",titulo="Error404",titulo2="Error404",errormesaje="No se ha encontrado la fecha indicada. Compruebe que está escrita correctamente",urlform="/forms/ptdd")
 
     return render_template("5-day-weather-forecast.html",titulo=titulo,titulo2=titulo2,listadatosptdd=listadatosptdd,listadatosptdd2=listadatosptdd2,date=date)
 
@@ -197,6 +214,10 @@ def cdr():
         entityName = entity["name"]
         if entityName.startswith(name):
             listadatos.append(entity)
+    
+    if len(listadatos) == 0:
+        return render_template("error404.html",titulo="Error404",titulo2="Error404",errormesaje="Los caracteres introducidos no coinciden con ningún nombre. Recuerde que la primera letra de la ciudad tiene que ser en mayúsculas",urlform="/forms/acda")
+    
     return render_template("crd.html",titulo=titulo,titulo2=titulo2,listadatos=listadatos)
 
 #Resultado programa 3.
@@ -219,6 +240,10 @@ def acda(lat, lon):
         datos=response.json()
         for i in datos.get("list"):
             listadatos.append(i)
+    
+    if len(listadatos) == 0:
+        return render_template("error404.html",titulo="Error404",titulo2="Error404",errormesaje="La lon y lat no coinciden con la de ninguna ciudad. Compruebe que está escrito correctamente",urlform="/forms/acda")
+
     return render_template("Air-Pollution-API.html",titulo=titulo,titulo2=titulo2,listadatos=listadatos)
 
 if __name__ == '__main__':
